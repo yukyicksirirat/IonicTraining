@@ -24,6 +24,10 @@ export class AuthService {
     });
   }
 
+  getCurrentUser() {
+    return of(this.loggedInUser);
+  }
+
   register(user: User) {
     this.isLoggedIn = true;
     return of(user);
@@ -32,23 +36,25 @@ export class AuthService {
   login(username: string, password: string) {
     let user = null;
 
-    if (username === 'admin' && password === 'admin') {
+    if (username.toLowerCase() === 'admin' && password === 'admin') {
       user = { username, roles: 'ADMIN' };
-    } else {
+    } else if (username.toLowerCase() === 'user' && password === 'user') {
       user = { username, roles: 'USER' };
     }
 
     this.isLoggedIn = true;
+    this.loggedInUser = user;
 
     // Normally you would store e.g. JWT
     this.storage.setItem('token', ACCESS_TOKEN);
 
     // Normally you would have a real user object at this point
-    return of(user);
+    return of(this.loggedInUser);
   }
 
   logout() {
     this.isLoggedIn = false;
+    this.loggedInUser = null;
   }
 
   isAuthenticated() {

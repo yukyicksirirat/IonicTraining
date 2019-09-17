@@ -13,7 +13,8 @@ const routes: Routes = [
     path: 'app',
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' }
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'user-dashboard', loadChildren: './user-dashboard/user-dashboard.module#UserDashboardPageModule' }
 ];
 
 @NgModule({
