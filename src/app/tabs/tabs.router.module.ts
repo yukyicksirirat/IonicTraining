@@ -1,53 +1,57 @@
+import { AuthGuard } from './../guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
-          }
-        ]
-      },
-      {
-        path: 'tab2',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-          }
-        ]
-      },
-      {
-        path: 'tab3',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-          }
-        ]
-      },
-      {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
+        children: [
+          {
+            path: 'dashboard',
+            loadChildren: () =>
+              import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+          }
+        ]
+      },
+      {
+        path: 'quotations',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../quotations/quotations.module').then(m => m.QuotationsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'invoices',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../invoices/invoices.module').then(m => m.InvoicesPageModule)
+          }
+        ]
+      },
+      {
+        path: 'customers',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../customers/customers.module').then(m => m.CustomersPageModule)
+          }
+        ]
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
   }
 ];
 
