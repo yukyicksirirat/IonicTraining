@@ -32,15 +32,15 @@ export class LoginPage implements OnInit {
     this.authService.login(user.username, user.password).subscribe(data => {
       if (data) {
         this.currentUser = data;
+        console.log(this.currentUser);
+        const role = this.currentUser.roles;
+
+        if (role === 'ADMIN') {
+          this.router.navigateByUrl('/app/dashboard');
+        } else if (role === 'USER') {
+          this.router.navigateByUrl('/app/user/dashboard');
+        }
       }
     });
-    console.log(this.currentUser);
-    const role = this.currentUser.roles;
-
-    if (role === 'ADMIN') {
-      this.router.navigateByUrl('/app/dashboard');
-    } else {
-      this.router.navigateByUrl('/app/user/dashboard');
-    }
   }
 }

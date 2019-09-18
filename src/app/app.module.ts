@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 import { MatButtonModule, MatFormFieldModule, MatInputModule,
   MatSelectModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,12 +31,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule, MatInputModule, MatSelectModule,
     MatRadioModule, MatFormFieldModule, MatCheckboxModule,
     InMemoryWebApiModule.forRoot(MockBackendService),
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    NativeStorage
   ],
   bootstrap: [AppComponent]
 })

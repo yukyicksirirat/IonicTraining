@@ -1,20 +1,20 @@
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class  StorageService {
 
-  constructor(private storage: NativeStorage,
+  constructor(private storage: Storage,
               private platform: Platform) { }
 
-  public setItem(key, value) {
-    return this.storage.setItem(key, value);
+  public set(key, value) {
+    return this.storage.set(key, value);
   }
-  public getItem(key) {
-    return this.storage.getItem(key);
+  public get(key) {
+    return this.storage.get(key);
   }
   public async remove(key) {
     return this.storage.remove(key);

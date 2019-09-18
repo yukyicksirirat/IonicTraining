@@ -1,10 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { environment } from 'src/environments/environment';
-import { of } from 'rxjs';
+import { of, from } from 'rxjs';
 
 const ACCESS_TOKEN = 'authentication-token';
 
@@ -29,24 +27,45 @@ export class AuthService {
   }
 
   register(user: User) {
-    this.isLoggedIn = true;
-    return of(user);
+    const result = this.storage.set('token', ACCESS_TOKEN).then(() => {
+          this.storage.set(user.username, user);
+          this.isLoggedIn = true;
+          this.loggedInUser = user;
+          return this.loggedInUser;
+        },
+        error => {
+          console.error('Error Registration. ', error);
+          this.isLoggedIn = false;
+          return null;
+        });
+    return from(result);
   }
 
   login(username: string, password: string) {
-    let user = null;
+    this.storage.get(username).then(data => {
+      if (data) {
+        this.loggedInUser = data;
+        this.isLoggedIn = true;
+        this.storage.set('token', ACCESS_TOKEN);
+      }
+    },
+    error => {
+      this.loggedInUser = null;
+      this.isLoggedIn = false;
+      console.log('Error logging in ', error);
+    });
 
-    if (username.toLowerCase() === 'admin' && password === 'admin') {
-      user = { username, roles: 'ADMIN' };
-    } else if (username.toLowerCase() === 'user' && password === 'user') {
-      user = { username, roles: 'USER' };
-    }
+    // if (username.toLowerCase() === 'admin' && password === 'admin') {
+    //   user = { username, roles: 'ADMIN' };
+    // } else if (username.toLowerCase() === 'user' && password === 'user') {
+    //   user = { username, roles: 'USER' };
+    // }
 
-    this.isLoggedIn = true;
-    this.loggedInUser = user;
+    // this.isLoggedIn = true;
+    // this.loggedInUser = user;
 
-    // Normally you would store e.g. JWT
-    this.storage.setItem('token', ACCESS_TOKEN);
+    // // Normally you would store e.g. JWT
+    // this.storage.set('token', ACCESS_TOKEN);
 
     // Normally you would have a real user object at this point
     return of(this.loggedInUser);
@@ -58,6 +77,8 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.isLoggedIn;
+    return this.isLoggedIn &&
+            this.storage.get('token') &&
+            this.storage.get(this.loggedInUser.username);
   }
 }
