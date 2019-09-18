@@ -1,6 +1,5 @@
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +8,12 @@ import { StorageService } from '../services/storage.service';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private authService: AuthService,
-              private storage: StorageService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.storage.get(this.authService.loggedInUser.username).then(data => {
-      console.log('user ', data);
-    });
+    if (this.authService.isAuthenticated()) {
+      console.log(this.authService.loggedInUser);
+    }
   }
 
 }

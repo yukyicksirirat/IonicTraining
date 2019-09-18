@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/app/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Quotation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="quotationForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating" color="primary">Quotation No.</ion-label>
+      <ion-input type="text" formControlName="quotationNo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Customer</ion-label>
+      <ion-select formControlName="customer">
+        <ion-select-option value="0">Select</ion-select-option>
+        <ion-select-option value="1">Customer-1</ion-select-option>
+        <ion-select-option value="2">Customer-2</ion-select-option>
+        <ion-select-option value="3">Customer-3</ion-select-option>
+        <ion-select-option value="4">Customer-4</ion-select-option>
+        <ion-select-option value="5">Customer-5</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Quotation Date</ion-label>
+      <ion-datetime formControlName="quotationDate" displayFormat="DD/MM/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Expire Date</ion-label>
+      <ion-datetime formControlName="expireDate" displayFormat="DD/MM/YYYY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Payment Term</ion-label>
+      <ion-select formControlName="paymentTerm">
+        <ion-select-option value="0">Select</ion-select-option>
+        <ion-select-option value="30">Credit 30 days</ion-select-option>
+        <ion-select-option value="60">Credit 60 days</ion-select-option>
+        <ion-select-option value="90">Credit 90 days</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Reference No.</ion-label>
+      <ion-input type="text" formControlName="referenceNo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">PIC</ion-label>
+      <ion-select formControlName="pic">
+        <ion-select-option value="0">Select</ion-select-option>
+        <ion-select-option value="biggy">Biggy Nuttapon</ion-select-option>
+        <ion-select-option value="sales">Sales</ion-select-option>
+      </ion-select>>
+    </ion-item>
+    <div>
+      <ion-button color="success" type="button" expand="block" (click)="addItem()">
+        <ion-icon slot="start" name="add-circle"></ion-icon>Add Item
+      </ion-button>
+    </div>
+    <ion-item>
+      <ion-label position="floating" color="primary">Subtotal</ion-label>
+      <ion-input type="number" text-right readonly formControlName="subtotal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Other Charges</ion-label>
+      <ion-input type="number" text-right formControlName="otherCharges"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">VAT</ion-label>
+      <ion-input type="number" text-right readonly formControlName="vat"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Grand Total</ion-label>
+      <ion-input type="number" text-right readonly formControlName="grandTotal"></ion-input>
+    </ion-item>
+  </form>
+</ion-content>

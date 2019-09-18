@@ -44,9 +44,16 @@ export class AuthService {
   login(username: string, password: string) {
     this.storage.get(username).then(data => {
       if (data) {
-        this.loggedInUser = data;
-        this.isLoggedIn = true;
-        this.storage.set('token', ACCESS_TOKEN);
+        console.log(data);
+        if (data.username === username && data.passwordGroup.password === password) {
+          this.loggedInUser = data;
+          this.isLoggedIn = true;
+          this.storage.set('token', ACCESS_TOKEN);
+        } else {
+          console.error('Invalid username or password');
+        }
+      } else {
+        console.error('Invalid username');
       }
     },
     error => {
@@ -72,6 +79,7 @@ export class AuthService {
   }
 
   logout() {
+    this.storage.remove('token');
     this.isLoggedIn = false;
     this.loggedInUser = null;
   }

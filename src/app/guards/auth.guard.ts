@@ -30,9 +30,9 @@ export class AuthGuard implements CanActivate {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
 
-    const expectedRole = route.data.roles;
-    console.log(route.data.roles);
     if (route.url.toString().indexOf('/dashboard') > 0) {
+      const expectedRole = route.data.roles;
+      console.log(route.data.roles);
       return this.authService.getCurrentUser().pipe(
         map(user => {
           if (!user) {

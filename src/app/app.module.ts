@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     MatButtonModule, MatInputModule, MatSelectModule,
     MatRadioModule, MatFormFieldModule, MatCheckboxModule,
