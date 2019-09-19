@@ -13,7 +13,11 @@ const routes: Routes = [
     path: 'app',
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' }
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'user-dashboard', loadChildren: './user-dashboard/user-dashboard.module#UserDashboardPageModule' },
+  { path: 'quotation-create', loadChildren: './quotations/quotation-create/quotation-create.module#QuotationCreatePageModule' },
+  { path: 'quotation-view', loadChildren: './quotations/quotation-view/quotation-view.module#QuotationViewPageModule' },
+  { path: 'quotation-list', loadChildren: './quotations/quotation-list/quotation-list.module#QuotationListPageModule' }
 ];
 
 @NgModule({

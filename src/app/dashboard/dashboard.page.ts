@@ -11,7 +11,9 @@ export class DashboardPage implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-
+    if (this.authService.isAuthenticated()) {
+      console.log(this.authService.loggedInUser);
+    }
   }
 
 }

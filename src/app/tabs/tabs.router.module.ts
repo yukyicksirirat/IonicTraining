@@ -9,12 +9,30 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: '',
+        path: 'dashboard',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            data: {
+              roles: 'ADMIN'
+            },
+            loadChildren: () =>
+              import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+          }
+        ]
+      },
+      {
+        path: 'user',
         children: [
           {
             path: 'dashboard',
+            canActivate: [AuthGuard],
+            data: {
+              roles: 'USER'
+            },
             loadChildren: () =>
-              import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+              import('../user-dashboard/user-dashboard.module').then(m => m.UserDashboardPageModule)
           }
         ]
       },
